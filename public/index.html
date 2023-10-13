@@ -11,19 +11,12 @@
 <body class="bg-slate-800 text-white">
     
     <div class="flex items-center justify-center text-center uppercase font-bold text-white text-6xl p-2 mt-5 mb-10">
-            
-        Welcome to this shitty Typing Test (INDEX 3)
-
+        Welcome to MCP Typing test
     </div>
 
-    <div id="resultado" class="flex items-center justify-center font-semibold text-4xl text-center mx-5"></div>
-    <div id="insultme" class="flex items-center justify-center font-semibold text-4xl text-center mx-5"></div>
-    <div id="goingwell"></div>
-
-    <div class="flex items-center justify-center font-semibold text-4xl text-center mx-5">
+    <div id="tytest" class="flex items-center justify-center font-semibold text-4xl text-center mx-5">
         typing test
     </div>
-
 
     <!-- OUTER CONTAINER DIV : Este es el contenedor que tendra el formulario y dictamina cuanto espacio se le asigna como limite, asi como su justificacion centrada -->
     <div class="flex justify-center items-center mt-10 p-4">
@@ -36,25 +29,16 @@
 
                 <!-- INPUT CONTAINER DIV : Esto le da el tamaño al input asignadole un contenedor y diciendole que ocupe todo ese espacio -->
                 <div class="w-full">
-
-                    <input class="w-full bg-slate-800 border-b-4 text-gray-300 text-2xl" type="text" name="userInputName" id="userInputID" value="">
-
-                    <!-- 
-                    Ejecutamos un script de JavaScript usando la libreria AXIOS la cual esta importada via CDN para realizar una solicutd AJAX, 
-                    para mas info de que es esto consultar.
-                    -->
-
-                    <script src="./js/main.js"></script>
-                    
-
+                    <input class="w-full bg-slate-800 border-b-4 text-gray-300 text-2xl" type="text" name="userInputName" id="userInputID" value="">                    
                 </div>
-
             </div>
-
         </form>
-
     </div>   
+
+    <div id="resultado" class="flex items-center justify-center font-semibold text-4xl text-center mx-5"></div>
+    <div id="insultme" class="flex items-center justify-center font-semibold text-4xl text-center mx-5"></div>
     
+    <script src="./js/main.js"></script>
 </body>
 </html>
 

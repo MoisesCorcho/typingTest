@@ -18,22 +18,49 @@ userInputField.addEventListener('input', function()
     // Obtenemos el valor del campo de entrada
     var userInputRecieved = userInputField.value;
 
-    console.log(userInputRecieved);
+    var tempIndex = 0
 
-    /**
-     * Hacemos una solicitud AJAX a "typer.php" mediante esta forma le pasamos toda la informacion que necesita la solicitud.
-     * 
-     * METHOD: hace referencia al metodo que ejecutara la solicitud.
-     * 
-     * URL: pasa la ruta al archivo al cual le mandara la solicitud.
-     * 
-     * DATA: es el parametro por el cual se pasara el valor de la variable que se transmitira en la 
-     * solicitud por ende va entre comillas invertidas (`) para poder insertar la variable de PHP.
-     * 
-     * HEADER: muestra una instruccion le pasa a PHP la forma correcta en que debe interpretar la informacion, de 
-     * lo contrario se pasaran datos en formato JSON cosa que no soporta PHP por defecto.
-     */
-    
+    // Obtenemos el ultimo indice en donde se escribio bien.
+    while (tempIndex < userInputRecieved.length && tempIndex < textito.length) {
+        // Si no concuerda rompemos ciclo.
+        if ( userInputRecieved[tempIndex] !== textito[tempIndex]) {
+            break;
+        }
+        tempIndex++
+    }
+
+    var elem = document.querySelector('#tytest');
+
+    // Si tempIndex < 0 significa que no se ha escrito nada bien.
+    if (tempIndex < 1 && userInputRecieved.length >= textito.length) {
+        elem.innerHTML = '<span style="color: red;">' + textito + '</span>'
+    }
+
+    // Se han escrito algunas cosas bien, luego mal
+    if (tempIndex > 0 && tempIndex != textito.length) {
+        elem.innerHTML = 
+            '<span style="color: green;">' + textito.slice(0, tempIndex) + '</span>' +
+            '<span style="color: red;">' + textito.slice(tempIndex, userInputRecieved.length) + '</span>' +
+            textito.slice(userInputRecieved.length, textito.length)
+    }
+
+    // Se han escrito algunas cosas mal (Pero no todo el texto a llenar)
+    if (tempIndex < 1 && userInputRecieved.length < textito.length) {
+        elem.innerHTML =
+            '<span style="color: red;">' + textito.slice(tempIndex, userInputRecieved.length) + '</span>' +
+            textito.slice(userInputRecieved.length, textito.length)
+    }
+
+    // Si todo esta bien
+    if (tempIndex == textito.length) {
+        elem.innerHTML =
+        '<span style="color: green;">' + textito + '</span>' 
+    }
+
+    elem.style.whiteSpace = 'pre-wrap';
+
+    // ========================================================================================================================
+
     if (userInputRecieved.slice(-1) === textito[index] && userInputRecieved.length <= [...textito].slice(0, index+1).length) {
         error = false;
         toInsult = false;
@@ -52,45 +79,12 @@ userInputField.addEventListener('input', function()
 
     if (textito.length === userInputRecieved.length && !error) {
         document.getElementById('resultado').innerHTML = 'FELICITACIONES';
-    }
-    
-    var elemento = document.querySelector('#idTest');
-
-    // Si el elemento no existe lo creamos.
-    if (!elemento) {
-
-        var elemento = document.createElement('div')
-        elemento.className = "flex items-center justify-center font-semibold text-4xl text-center mx-5 text-yellow-300"
-        elemento.textContent = userInputRecieved
-        elemento.id = "idTest"
-        var container = document.getElementById('goingwell');
-        
-        if (index == 0 && error == true)
-        {
-            elemento.innerHTML = '<span style="color: red;">' + userInputRecieved[0] + '</span>';
-        }
-
-        container.appendChild(elemento);
-    } 
-
-    else {
-        // Si no hay errores mostramos la data que hemos escrito bien 
-        if (!error) {
-            elemento.innerHTML = userInputRecieved.slice(0, index);
-        }
-        // En caso que haya errores, mostramos de un color de 0 al indice y de color rojo del indice a la longitud
-        // de la cadena que escribimos. 
-        else {
-            elemento.innerHTML = userInputRecieved.slice(0, index) + '<span style="color: red;">' + userInputRecieved.slice(index, userInputRecieved.length) + '</span>';
-        }
+        userInputField.disabled = true;
     }
 
 });
 
-/**
- * Cambiamos la forma en la que se envia el formulario para que no sea la forma tradicional
- * y no se refresque la pagina.
- */ 
+
 formField.addEventListener('submit', function(e)
 {
     e.preventDefault();

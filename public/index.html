@@ -22,7 +22,7 @@
     <div class="flex justify-center items-center mt-10 p-4">
         
         <!-- FORM CONTAINER : Esta es la estructura del formulario como tal asigamos el tamaño que tendra el fomulario dentro del contenedor asignado antes -->
-        <form class="w-full max-w-6xl mx-5" method="POST" id="typingForm">
+        <form class="w-full max-w-6xl mx-5" id="typingForm">
 
             <!-- MIDDLE CONTAINER DIV : Esto permite que los objetos conenidos dentro del formulario y este div tengan la propiedad FLEX-->
             <div class="flex">
@@ -31,9 +31,15 @@
                 <div class="w-full">
                     <input class="w-full bg-slate-800 border-b-4 text-gray-300 text-2xl" type="text" name="userInputName" id="userInputID" value="">                    
                 </div>
+
+                <audio src="./audio/tecla.mp3" id="myAudio"></audio>
+                <audio src="./audio/you-win.mp3" id="myAudio2"></audio>
+                
             </div>
+            
         </form>
     </div>   
+    
 
     <div id="resultado" class="flex items-center justify-center font-semibold text-4xl text-center mx-5"></div>
     <div id="insultme" class="flex items-center justify-center font-semibold text-4xl text-center mx-5"></div>

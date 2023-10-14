@@ -4,6 +4,9 @@ var userInputField = document.getElementById('userInputID');
 // Obtenemos el ID del formulario
 var formField = document.getElementById('typingForm');
 
+// Obtenemos el button a traves de su id
+var buttonRestart = document.getElementById('restartButton');
+
 /**
  * -----------------------------
  *  Game variables
@@ -111,6 +114,10 @@ userInputField.addEventListener('input', function()
     }
 
     if (textito.length === userInputRecieved.length && !error) {
+
+        // Mostramos el boton de reinicio.
+        document.getElementById('restart').classList.remove('hidden')
+
         document.getElementById('resultado').innerHTML = 'FELICITACIONES';
         userInputField.disabled = true;
         document.getElementById("myAudio2").play();
@@ -122,4 +129,8 @@ userInputField.addEventListener('input', function()
 formField.addEventListener('submit', function(e)
 {
     e.preventDefault();
+});
+
+buttonRestart.addEventListener('click', function() {
+    location.reload();
 });

@@ -10,11 +10,11 @@
 </head>
 <body class="bg-slate-800 text-white">
     
-    <div class="flex items-center justify-center text-center uppercase font-bold text-white text-6xl p-2 mt-5 mb-10">
+    <div class="flex items-center justify-center text-center uppercase font-bold text-white text-6xl p-2 mt-5 mb-52">
         Welcome to MCP Typing test
     </div>
 
-    <div id="tytest" class="flex items-center justify-center font-semibold text-4xl text-center mx-5">
+    <div id="tytest" class="flex items-center justify-center font-semibold text-4xl text-center mx-5 text-yellow-500 mt-5">
         typing test
     </div>
 
@@ -37,12 +37,19 @@
                 
             </div>
             
+            <div class="flex justify-center mt-10 " id="restart">
+                <button id="restartButton" type="submit" class="flex items-center bg-green-900 text-white border border-green-700 rounded px-4 py-2 font-semibold uppercase">
+                    Restart
+                </button>
+            </div>
+
         </form>
     </div>   
     
 
-    <div id="resultado" class="flex items-center justify-center font-semibold text-4xl text-center mx-5"></div>
-    <div id="insultme" class="flex items-center justify-center font-semibold text-4xl text-center mx-5"></div>
+    <div id="resultado" class="flex items-center justify-center font-semibold text-4xl text-center mx-5 font-bold italic"></div>
+    <div id="insultme" class="flex items-center justify-center font-semibold text-4xl text-center mx-5 my-5"></div>
+    
     
     <script src="./js/main.js"></script>
 </body>

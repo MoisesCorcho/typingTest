@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html class="min-h-screen" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,50 +8,122 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Document</title>
 </head>
-<body class="bg-slate-800 text-white">
+<body class="bg-slate-800 text-white flex flex-col min-h-screen">
     
-    <div class="flex items-center justify-center text-center uppercase font-bold text-white text-6xl p-2 mt-5 mb-52">
-        Welcome to MCP Typing test
-    </div>
+    <!-- INICIO DE: NAVBAR -->
+    <nav class="bg-gray-700 px-4 py-6 shadow-lg mb-52 w-auto">
 
-    <div id="tytest" class="flex items-center justify-center font-semibold text-4xl text-center mx-5 text-yellow-500 mt-5">
-        typing test
-    </div>
+        <div class="flex items-center justify-center text-center uppercase font-bold text-white text-6xl p-2 mx-auto">
+            Welcome to MCP Typing test
+        </div>
 
-    <!-- OUTER CONTAINER DIV : Este es el contenedor que tendra el formulario y dictamina cuanto espacio se le asigna como limite, asi como su justificacion centrada -->
-    <div class="flex justify-center items-center mt-10 p-4">
+    </nav>
+    <!-- FIN DE: NAVBAR -->
+
+    <!-- INICIO DE: MAIN -->
+    <main class="">
+
+        <div id="tytest" class="flex items-center justify-center font-semibold text-4xl text-center mx-5 text-yellow-500 mt-5">
+            typing test
+        </div>
+    
+        <!-- OUTER CONTAINER DIV : Este es el contenedor que tendra el formulario y dictamina cuanto espacio se le asigna como limite, asi como su justificacion centrada -->
+        <div class="flex justify-center items-center mt-10 p-4">
+            
+            <!-- FORM CONTAINER : Esta es la estructura del formulario como tal asigamos el tamaño que tendra el fomulario dentro del contenedor asignado antes -->
+            <form class="w-full max-w-6xl mx-5 md:mb-52" id="typingForm">
+    
+                <!-- MIDDLE CONTAINER DIV : Esto permite que los objetos conenidos dentro del formulario y este div tengan la propiedad FLEX-->
+                <div class="flex">
+    
+                    <!-- INPUT CONTAINER DIV : Esto le da el tamaño al input asignadole un contenedor y diciendole que ocupe todo ese espacio -->
+                    <div class="w-full">
+                        <input class="w-full bg-slate-800 border-b-4 text-gray-300 text-2xl outline-none" type="text" name="userInputName" id="userInputID" value="">                    
+                    </div>
+    
+                    <audio src="./audio/tecla.mp3" id="myAudio"></audio>
+                    <audio src="./audio/you-win.mp3" id="myAudio2"></audio>
+                    
+                </div>
+                
+                <!-- BUTTON CONTAINER DIV -->
+                <div class="flex justify-center mt-10 mb-5" id="restart">
+    
+                    <!-- BUTTON -->
+                    <button id="restartButton" type="submit" class="flex items-center bg-green-900 text-white border border-green-600 rounded px-4 py-2 font-semibold uppercase hover:bg-green-500 hover:border-green-500 duration-300">
+                        Restart
+                    </button>
+    
+                </div>
+    
+                <!-- TEXT CONTAINER DIV -->
+                <div class="container h-10">
+    
+                    <div id="resultado" class="flex items-center justify-center text-4xl text-center mx-5 font-bold italic"></div>
         
-        <!-- FORM CONTAINER : Esta es la estructura del formulario como tal asigamos el tamaño que tendra el fomulario dentro del contenedor asignado antes -->
-        <form class="w-full max-w-6xl mx-5" id="typingForm">
+                    <div id="insultme" class="flex items-center justify-center text-4xl text-center mx-5 font-bold italic"></div>
+    
+                </div>
+                
+            </form>
+    
+        </div>
 
-            <!-- MIDDLE CONTAINER DIV : Esto permite que los objetos conenidos dentro del formulario y este div tengan la propiedad FLEX-->
-            <div class="flex">
+    </main>
+    <!-- FINAL DE: MAIN -->
+    
+    <!-- INICIO DE: FOOTER -->
+    <footer class="bg-black px-2 py-5 text-white mt-auto h-auto">
 
-                <!-- INPUT CONTAINER DIV : Esto le da el tamaño al input asignadole un contenedor y diciendole que ocupe todo ese espacio -->
-                <div class="w-full">
-                    <input class="w-full bg-slate-800 border-b-4 text-gray-300 text-2xl" type="text" name="userInputName" id="userInputID" value="">                    
+        <div class="container mx-auto">
+
+            <div class="flex flex-col md:flex-row justify-between">
+
+                <div class="flex items-center space-x-2 px-2">
+
+                    <img class="h-6 w-6 invert" src="../src/images/github.png" alt="">
+                    <a class="font-semibold text-sm text-white" href="https://github.com/MoisesCorcho/typingTest">
+                        GitHub (Repository)
+                    </a>
+
                 </div>
 
-                <audio src="./audio/tecla.mp3" id="myAudio"></audio>
-                <audio src="./audio/you-win.mp3" id="myAudio2"></audio>
-                
+                <div class="flex items-center space-x-2 px-2">
+
+                    <img class="h-6 w-6 invert" src="../src/images/github.png" alt="">
+                    <a class="font-semibold text-sm text-white" href="https://github.com/MoisesCorcho">
+                        GitHub (Backend Dev)
+                    </a>
+
+                </div>
+
+                <div class="flex items-center space-x-2 px-2">
+
+                    <img class="h-6 w-6 invert" src="../src/images/LinkedIn_Free_Icon.png" alt="">
+                    <a class="font-semibold text-sm text-white" href="https://www.linkedin.com/in/moises-corcho-perez-ingenierodesistemas">
+                        LinkedIn (Backend Dev)
+                    </a>
+
+                </div>
+
+                <div class="flex items-center space-x-2 px-2">
+
+                    <img class="h-6 w-6 invert" src="../src/images/LinkedIn_Free_Icon.png" alt="">
+                    <a class="font-semibold text-sm text-white" href="https://www.linkedin.com/in/jorge-david-galvis-t%C3%A1mara-3a982a289/">
+                        LinkedIn (Frontend Dev)
+                    </a>
+
+                </div>
+
             </div>
             
-            <div class="flex justify-center mt-10 " id="restart">
-                <button id="restartButton" type="submit" class="flex items-center bg-green-900 text-white border border-green-700 rounded px-4 py-2 font-semibold uppercase">
-                    Restart
-                </button>
-            </div>
+        </div>
 
-        </form>
-    </div>   
-    
+    </footer>
+    <!-- FINAL DE: FOOTER -->
 
-    <div id="resultado" class="flex items-center justify-center font-semibold text-4xl text-center mx-5 font-bold italic"></div>
-    <div id="insultme" class="flex items-center justify-center font-semibold text-4xl text-center mx-5 my-5"></div>
-    
-    
     <script src="./js/main.js"></script>
+
 </body>
 </html>
 

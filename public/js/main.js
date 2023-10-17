@@ -1,9 +1,6 @@
 // Obtenemos el ID del campo de entrada
 var userInputField = document.getElementById('userInputID');
 
-// Obtenemos el ID del formulario
-var formField = document.getElementById('typingForm');
-
 // Obtenemos el button a traves de su id
 var buttonRestart = document.getElementById('restartButton');
 
@@ -125,12 +122,14 @@ userInputField.addEventListener('input', function()
 
 });
 
-// Evitamos que se recargue la pagina
-formField.addEventListener('submit', function(e)
-{
-    e.preventDefault();
-});
 
 buttonRestart.addEventListener('click', function() {
     location.reload();
+});
+
+// Evitar que se recargue la página en el evento 'keydown' del campo de entrada
+userInputField.addEventListener('keydown', function(e) {
+    if (e.key === "Enter") {
+        e.preventDefault();
+    }
 });

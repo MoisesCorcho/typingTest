@@ -24,7 +24,6 @@
     <main class="">
 
         <div id="tytest" class="flex items-center justify-center font-semibold text-4xl text-center mx-5 text-yellow-500 mt-5">
-            typing test
         </div>
     
         <!-- OUTER CONTAINER DIV : Este es el contenedor que tendra el formulario y dictamina cuanto espacio se le asigna como limite, asi como su justificacion centrada -->
@@ -38,7 +37,7 @@
     
                     <!-- INPUT CONTAINER DIV : Esto le da el tamaño al input asignadole un contenedor y diciendole que ocupe todo ese espacio -->
                     <div class="w-full">
-                        <input class="w-full bg-slate-800 border-b-4 text-gray-300 text-2xl outline-none" type="text" name="userInputName" id="userInputID" value="">                    
+                        <input class="w-full bg-slate-800 border-b-4 text-gray-300 text-2xl outline-none" type="text" name="userInputName" id="userInputID" autocomplete="off">                    
                     </div>
     
                     <audio src="./audio/tecla.mp3" id="myAudio"></audio>
@@ -82,7 +81,7 @@
                 <div class="flex items-center space-x-2 px-2">
 
                     <img class="h-6 w-6 invert" src="../src/images/github.png" alt="">
-                    <a class="font-semibold text-sm text-white" href="https://github.com/MoisesCorcho/typingTest">
+                    <a class="font-semibold text-sm text-white" target="_blank" href="https://github.com/MoisesCorcho/typingTest">
                         GitHub (Repository)
                     </a>
 
@@ -91,7 +90,7 @@
                 <div class="flex items-center space-x-2 px-2">
 
                     <img class="h-6 w-6 invert" src="../src/images/github.png" alt="">
-                    <a class="font-semibold text-sm text-white" href="https://github.com/MoisesCorcho">
+                    <a class="font-semibold text-sm text-white" target="_blank" href="https://github.com/MoisesCorcho">
                         GitHub (Backend Dev)
                     </a>
 
@@ -100,7 +99,7 @@
                 <div class="flex items-center space-x-2 px-2">
 
                     <img class="h-6 w-6 invert" src="../src/images/LinkedIn_Free_Icon.png" alt="">
-                    <a class="font-semibold text-sm text-white" href="https://www.linkedin.com/in/moises-corcho-perez-ingenierodesistemas">
+                    <a class="font-semibold text-sm text-white" target="_blank" href="https://www.linkedin.com/in/moises-corcho-perez-ingenierodesistemas">
                         LinkedIn (Backend Dev)
                     </a>
 
@@ -109,7 +108,7 @@
                 <div class="flex items-center space-x-2 px-2">
 
                     <img class="h-6 w-6 invert" src="../src/images/LinkedIn_Free_Icon.png" alt="">
-                    <a class="font-semibold text-sm text-white" href="https://www.linkedin.com/in/jorge-david-galvis-t%C3%A1mara-3a982a289/">
+                    <a class="font-semibold text-sm text-white" target="_blank" href="https://www.linkedin.com/in/jorge-david-galvis-t%C3%A1mara-3a982a289/">
                         LinkedIn (Frontend Dev)
                     </a>
 
@@ -122,7 +121,7 @@
     </footer>
     <!-- FINAL DE: FOOTER -->
 
-    <script src="./js/main.js"></script>
+    <script src="./js/main.js" type="module"></script>
 
 </body>
 </html>

@@ -1,3 +1,5 @@
+import { obtenerFraseAleatoria } from './texts.js';
+
 // Obtenemos el ID del campo de entrada
 var userInputField = document.getElementById('userInputID');
 
@@ -11,7 +13,7 @@ var buttonRestart = document.getElementById('restartButton');
  */
 
 // Texto para replicar
-const textito = "typing test";
+const textito = obtenerFraseAleatoria();
 
 // aumenta cada vez que se ingresa un caracter correcto.
 var index = 0;
@@ -24,6 +26,10 @@ var toInsult = false;
 
 // Lleva control de los errores cometidos.
 var error = false;
+
+// Establecemos el texto
+var elem = document.querySelector('#tytest');
+elem.textContent = textito;
 
 // Monitoreamos el evento INPUT en el campo de entrada para verificar cada modificacion de su valor.
 userInputField.addEventListener('input', function()
@@ -49,7 +55,7 @@ userInputField.addEventListener('input', function()
         tempIndex++
     }
 
-    var elem = document.querySelector('#tytest');
+    // var elem = document.querySelector('#tytest');
 
     // Si tempIndex < 0 significa que no se ha escrito nada bien.
     if (tempIndex < 1 && userInputRecieved.length >= textito.length) {

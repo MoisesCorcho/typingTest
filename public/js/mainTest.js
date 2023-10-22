@@ -13,11 +13,14 @@ var buttonRestart = document.getElementById('restartButton');
  */
 
 // Texto para replicar
-const textito = "type test bueno";
+const textito = obtenerFraseAleatoria();
+
+var score = 0;
 
 // aumenta cada vez que se ingresa un caracter correcto.
 var index = 0;
 
+// Permite saber por cual indice vamos del arreglo cuya longitud aumenta cada vez que digitamos un espacio
 var indexArr = 0;
 
 // insulto que se mostrará cada vez que se ingrese un caracter incorrecto.
@@ -26,11 +29,10 @@ var insult = 'ESCRIBE BIEN NOJODA.';
 // Permite saber si se va a insultar al usuario o no.
 var toInsult = false;
 
-// Lleva control de los errores cometidos.
-var error = false;
-
-// Establecemos el texto
+// Creamos la variable en donde almacenaremos el html donde incrustaremos el texto que escribimos
 var elem = document.querySelector('#tytest');
+
+// Establecemos el string a completar
 elem.textContent = textito;
 
 // Monitoreamos el evento INPUT en el campo de entrada para verificar cada modificacion de su valor.
@@ -94,7 +96,7 @@ userInputField.addEventListener('input', function()
             if ( i == userInputRecievedArr.length - 1 ) {
 
                 if (!textitoArr[i].includes(".")) {
-                    // Eliminamos el punto del final de lo que escribimos al fina solo si la palabra final NO lleva punto.
+                    // Eliminamos el punto del final de la palabra, solo si la palabra final NO lleva punto.
                     userInputRecievedArr[i] = userInputRecievedArr[i].slice(0, -1)
                 } 
                 
@@ -183,13 +185,14 @@ userInputField.addEventListener('input', function()
      * index     => Va comprobando que el ultimo caracter ingresado sea el correcto segun lo que debemos escribir
      * tempIndex => Revisa desde cero cada vez que lo que hemos escrito esté correcto desde el principio
      */
-    if (userInputRecieved.slice(-1) === textito[index] && index == tempIndex-1) {
-        error = false;
+    if ( userInputRecievedArr[indexArr].slice(-1) === textitoArr[indexArr][index] && index == tempIndex-1 ) {
         toInsult = false;
         index++;
     }
+    else if ( userInputRecievedArr[indexArr].length == 0 && userInputRecieved.slice(-1) == " " ) {
+        toInsult = false;
+    }
     else {
-        error = true;
         toInsult = true;
     }
 
@@ -199,17 +202,31 @@ userInputField.addEventListener('input', function()
         document.getElementById('insultme').innerHTML = '';
     }
 
+    
+
     /**
      * 🔹 The test will finishing when <textitoArr.length == userInputRecievedArr.length && userInputRecieved.slice(-1) == ".">
      *    OR when textitoArr.length < userInputRecievedArr.length.
      * 🔹 You'll win the test when you accert 60% or more.
      */
     if (textitoArr.length == userInputRecievedArr.length && userInputRecieved.slice(-1) == ".") {
-        youWon()
+
+        //Eliminamos el insulto siempre al finalizar.
+        document.getElementById('insultme').innerHTML = '';
+
+        score = calculateScore(textitoArr, userInputRecievedArr, score)
+
+        if ( score >= 60 ) {
+            youWon(score)
+        } else {
+            youFailed(score)
+        }
+        
     }
 
 });
 
+//======================================================================================================================================
 
 buttonRestart.addEventListener('click', function() {
     location.reload();
@@ -246,24 +263,24 @@ function startTypingAudio()
     audio.play()
 }
 
-function youWon()
+function youWon(score)
 {
     // Mostramos el boton de reinicio.
     document.getElementById('restart').classList.remove('hidden')
 
-    document.getElementById('resultado').innerHTML = 'FELICITACIONES';
+    document.getElementById('resultado').innerHTML = '¡¡FELICITACIONES!! TU PORCENTAJE DE ACIERTO FUE DE ' + score.toFixed(2) + '%';
     userInputField.disabled = true;
     document.getElementById("myAudio2").play();
 }
 
-function youFailed()
+function youFailed(score)
 {
     // Mostramos el boton de reinicio.
     document.getElementById('restart').classList.remove('hidden')
 
-    document.getElementById('resultado').innerHTML = 'SIGUE INTENTANDO';
+    document.getElementById('resultado').innerHTML = '¡¡SIGUE INTENTANDO!! TU PORCENTAJE DE ACIERTO FUE DE ' + score.toFixed(2) + '%' + ', PARA GANAR DEBES OBTENER 60% O MAS';
     userInputField.disabled = true;
-    document.getElementById("myAudio2").play();
+    // document.getElementById("myAudio2").play();
 }
 
 /**
@@ -320,4 +337,21 @@ function decideCharacterColorStartsWrong(textitoArr, indexArr, tempIndex, userIn
         textitoArr[indexArr].slice(userInputRecievedArr[indexArr].length, textitoArr[indexArr].length) // Dejamos del color base lo que falta por escribir
     
         return text
+}
+
+function calculateScore(textitoArr, userInputRecievedArr, score)
+{
+    var score = 0
+    for (let i = 0; i < textitoArr.length; i++) {
+        
+        if ( textitoArr[i] === userInputRecievedArr[i] ) {
+            score += 1
+        } else {
+            score += 0
+        }
+    }
+
+    var porcentage = (score/textitoArr.length) * 100
+
+    return porcentage
 }

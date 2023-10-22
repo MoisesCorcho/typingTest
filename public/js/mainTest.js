@@ -13,7 +13,7 @@ var buttonRestart = document.getElementById('restartButton');
  */
 
 // Texto para replicar
-const textito = obtenerFraseAleatoria();
+const textito = "type test bueno";
 
 // aumenta cada vez que se ingresa un caracter correcto.
 var index = 0;
@@ -52,7 +52,10 @@ userInputField.addEventListener('input', function()
 
     /**
      * IndexArr increases only when the user type a space 
-     * AND indexArr + 1 sea diferente de la longitud de userInputReceivedArray
+     * AND when indexArr + 1 is different from the length of userInputReceivedArray
+     * 
+     * At this point userInputRecievedArr.length should always be greater than indexArr
+     * by 1
      */
     if (userInputRecieved.slice(-1) == " " && (indexArr + 1) != userInputRecievedArr.length) {
 
@@ -65,9 +68,9 @@ userInputField.addEventListener('input', function()
     }
 
     // Obtenemos el primer indice donde se escribió mal.
-    while (tempIndex < userInputRecieved.length && tempIndex < textito.length) {
+    while (tempIndex < userInputRecievedArr[indexArr].length && tempIndex < textitoArr[indexArr].length) {
         // Si no concuerda rompemos ciclo.
-        if ( userInputRecieved[tempIndex] !== textito[tempIndex]) {
+        if ( userInputRecievedArr[indexArr][tempIndex] !== textitoArr[indexArr][tempIndex]) {
             break;
         }
         tempIndex++
@@ -116,7 +119,52 @@ userInputField.addEventListener('input', function()
             htmlText += decideStringColor(textitoArr, userInputRecievedArr, i)
         }
 
-        htmlText += textitoArr.slice(indexArr, textitoArr.length).join(" ");
+        if (tempIndex > 0 && tempIndex != textito.length) {
+            
+            htmlText += decideCharacterColorStartsWell(textitoArr, indexArr, tempIndex, userInputRecievedArr);
+                
+            // Agregamos espacio al final mientras no estemos en la ultima palabra.
+            if (userInputRecievedArr.length != textitoArr.length) {
+                htmlText += "&nbsp;"
+            }
+                
+
+        }
+        // Some character have been misspelled from the beginning, but not all. 
+        else {
+            htmlText += decideCharacterColorStartsWrong(textitoArr, indexArr, tempIndex, userInputRecievedArr);
+
+            // Agregamos espacio al final mientras no estemos en la ultima palabra.
+            if (userInputRecievedArr.length != textitoArr.length) {
+                htmlText += "&nbsp;"
+            }
+
+        }
+
+        htmlText += textitoArr.slice(indexArr + 1, textitoArr.length).join(" ");        
+
+        elem.innerHTML = htmlText
+
+    } else if (indexArr == 0) {
+        // The user has not entered a space yet
+
+        console.log('Third');
+
+        // Some characters have been mistyped, but not all.
+        if (tempIndex > 0 && tempIndex != textito.length) {
+
+            htmlText += decideCharacterColorStartsWell(textitoArr, indexArr, tempIndex, userInputRecievedArr);
+
+            htmlText += "&nbsp;" // Espacio en blanco
+        } 
+        // Some character have been misspelled from the beginning, but not all.
+        else {
+            htmlText += decideCharacterColorStartsWrong(textitoArr, indexArr, tempIndex, userInputRecievedArr);
+
+            htmlText += "&nbsp;" // Espacio en blanco
+        }
+
+        htmlText += textitoArr.slice(indexArr + 1, textitoArr.length).join(" ");
 
         elem.innerHTML = htmlText
     }
@@ -233,4 +281,43 @@ function decideStringColor(textitoArr, userInputRecievedArr, i)
     } else {
         return '<span style="color: red;">' + textitoArr[i] + '</span>' + "&nbsp;"
     }
+}
+
+/**
+ * // Some character have been well written from the beginning AND some have been misspelled, but not all.
+ * 
+ * @param {Array} textitoArr 
+ * @param {integer} indexArr 
+ * @param {integer} tempIndex 
+ * @param {Array} userInputRecievedArr 
+ * 
+ * @returns string
+ */
+function decideCharacterColorStartsWell(textitoArr, indexArr, tempIndex, userInputRecievedArr)
+{
+    var text = 
+        '<span style="color: green;">' + textitoArr[indexArr].slice(0, tempIndex) + '</span>' + // Pintamos de rojo lo malo
+        '<span style="color: red;">' + textitoArr[indexArr].slice(tempIndex, userInputRecievedArr[indexArr].length) + '</span>' + // Pintamos de verde lo bueno
+        textitoArr[indexArr].slice(userInputRecievedArr[indexArr].length, textitoArr[indexArr].length) // Dejamos del color base lo que falta por escribir
+
+    return text;
+}
+
+/**
+ * // Some character have been misspelled from the beginning, but not all.
+ * 
+ * @param {Array} textitoArr 
+ * @param {integer} indexArr 
+ * @param {integer} tempIndex 
+ * @param {Array} userInputRecievedArr 
+ * 
+ * @returns string
+ */
+function decideCharacterColorStartsWrong(textitoArr, indexArr, tempIndex, userInputRecievedArr)
+{
+    var text =
+        '<span style="color: red;">' + textitoArr[indexArr].slice(tempIndex, userInputRecievedArr[indexArr].length) + '</span>' + // Pintamos de rojo lo malo
+        textitoArr[indexArr].slice(userInputRecievedArr[indexArr].length, textitoArr[indexArr].length) // Dejamos del color base lo que falta por escribir
+    
+        return text
 }

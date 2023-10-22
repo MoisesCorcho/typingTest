@@ -13,7 +13,7 @@ var buttonRestart = document.getElementById('restartButton');
  */
 
 // Texto para replicar
-const textito = "type test bueno.";
+const textito = obtenerFraseAleatoria();
 
 // aumenta cada vez que se ingresa un caracter correcto.
 var index = 0;
@@ -50,10 +50,18 @@ userInputField.addEventListener('input', function()
 
     var tempIndex = 0
 
+    /**
+     * IndexArr increases only when the user type a space 
+     * AND indexArr + 1 sea diferente de la longitud de userInputReceivedArray
+     */
+    if (userInputRecieved.slice(-1) == " " && (indexArr + 1) != userInputRecievedArr.length) {
 
-    // Para bloquear el uso de la tecla eliminar cuando haya un espacio como ultimo caracter.
-    if (userInputRecieved.slice(-1) == " ") {
         indexArr++
+        // Agregar el escuchador de eventos para bloquear "Eliminar"
+        userInputField.addEventListener('keydown', bloquearTeclaDelete);
+    } else {
+        // Para desbloquear "Eliminar", elimina el escuchador de eventos
+        userInputField.removeEventListener('keydown', bloquearTeclaDelete);
     }
 
     // Obtenemos el primer indice donde se escribió mal.
@@ -65,29 +73,28 @@ userInputField.addEventListener('input', function()
         tempIndex++
     }
 
-    console.log(userInputRecievedArr.length);
-    console.log(textitoArr.length);
-
     // Bloquemos la tecla space al final de lo escrito.
     if (textitoArr.length == userInputRecievedArr.length) {
         userInputField.addEventListener('keydown', bloquearTeclaSpace);
     }
 
+    var htmlText = '';
+
+    // Entra aqui solo cuando estamos en la ultima palabra del string a replicar.
     if ( textitoArr.length == userInputRecievedArr.length && userInputRecieved.slice(-1) == "." ) {
 
         console.log('first');
-        var htmlText = '';
 
         for (let i = 0; i < userInputRecievedArr.length; i++) {
             
+            // Si nos encontranmos en la ultima palabra del texto que debemos replicar.
             if ( i == userInputRecievedArr.length - 1 ) {
 
-                if (!userInputRecievedArr[i].includes(".")) {
+                if (!textitoArr[i].includes(".")) {
                     // Eliminamos el punto del final de lo que escribimos al fina solo si la palabra final NO lleva punto.
                     userInputRecievedArr[i] = userInputRecievedArr[i].slice(0, -1)
                 } 
                 
-
                 if ( textitoArr[i] === userInputRecievedArr[i] ) {
                     htmlText += '<span style="color: green;">' + textitoArr[i] + '</span>'
                 } else {
@@ -95,13 +102,7 @@ userInputField.addEventListener('input', function()
                 }
 
             } else {
-
-                if ( textitoArr[i] === userInputRecievedArr[i] ) {
-                    htmlText += '<span style="color: green;">' + textitoArr[i] + '</span>' + "&nbsp;"
-                } else {
-                    htmlText += '<span style="color: red;">' + textitoArr[i] + '</span>' + "&nbsp;"
-                }
-
+                htmlText += decideStringColor(textitoArr, userInputRecievedArr, i)
             }
         }
 
@@ -111,24 +112,14 @@ userInputField.addEventListener('input', function()
 
         console.log('second');
 
-        var htmlText = '';
-
         for (let i = 0; i < indexArr; i++) {
-            if ( textitoArr[i] === userInputRecievedArr[i] ) {
-                htmlText += '<span style="color: green;">' + textitoArr[i] + '</span>' + "&nbsp;"
-            } else {
-                htmlText += '<span style="color: red;">' + textitoArr[i] + '</span>' + "&nbsp;"
-            }
+            htmlText += decideStringColor(textitoArr, userInputRecievedArr, i)
         }
 
         htmlText += textitoArr.slice(indexArr, textitoArr.length).join(" ");
 
         elem.innerHTML = htmlText
     }
-
-
-    // Para que se tomen en cuenta los espacios en blanco.
-    elem.style.whiteSpace = 'pre-wrap';
     
     // ========================================================================================================================
     
@@ -136,9 +127,6 @@ userInputField.addEventListener('input', function()
     if (tempIndex-1 < index) {
         index = tempIndex
     }
-
-    console.log("index: "+index);
-    console.log("tempIndex: "+tempIndex + "\n\n");
 
     /**
      * verificamos que el ultimo caracter ingresado sea igual al caracter que debemos escribir
@@ -193,6 +181,13 @@ function bloquearTeclaSpace(event) {
     }
 }
 
+// Para bloquear el uso de la tecla eliminar cuando haya un espacio como ultimo caracter.
+function bloquearTeclaDelete(event) {
+    if (event.key === 'Delete' || event.key === 'Del' || event.key === 'Backspace') {
+        event.preventDefault(); // Bloquea la tecla "Eliminar"
+    }
+}
+
 function startTypingAudio()
 {
     // Se reproduce cada vez que se ingresa un caracter.
@@ -221,4 +216,21 @@ function youFailed()
     document.getElementById('resultado').innerHTML = 'SIGUE INTENTANDO';
     userInputField.disabled = true;
     document.getElementById("myAudio2").play();
+}
+
+/**
+ * This function decide if the color the string is red or green.
+ * 
+ * @param {integer} i the for index when we walk through the array either up indexArr 
+ * or userInputRecievedArr.length
+ * @param {Array} textitoArr The string we want to complete converted to an Array
+ * @param {Array} userInputRecievedArr The string we are typing converted to an Array
+ */
+function decideStringColor(textitoArr, userInputRecievedArr, i)
+{
+    if ( textitoArr[i] === userInputRecievedArr[i] ) {
+        return '<span style="color: green;">' + textitoArr[i] + '</span>' + "&nbsp;"
+    } else {
+        return '<span style="color: red;">' + textitoArr[i] + '</span>' + "&nbsp;"
+    }
 }
